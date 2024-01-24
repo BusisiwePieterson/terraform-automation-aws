@@ -51,9 +51,6 @@ Open your Visual Studio Code and:
   - Create a folder called `PBL`
   - Create a file in the folder, name it `main.tf`
 
-
-#### Provider and VPC resource section
-
   - Add AWS as a provider, and a resource to create a VPC in the main.tf file.
 
   - Provider block informs Terraform that we intend to build infrastructure within AWS.
@@ -80,9 +77,8 @@ resource "aws_vpc" "main" {
 
 ![images](images/Screenshot_2.png)
 
-  - The next thing we need to do, is to download necessary plugins for Terraform to work. These plugins are used by providers and provisioners. At this stage, we only have provider in our main.tf file. So, Terraform will just download plugin for AWS provider.
+  - The next thing we need to do, is to download necessary plugins for Terraform to work. These plugins are used by providers and provisioners. At this stage, we only have provider in our main.tf file. So, Terraform will just download plugin for AWS provider.  Run `terraform init`
 
-  Run `terraform init`
 
   - Notice that a new directory has been created: .terraform.... This is where Terraform keeps plugins. Generally, it is safe to delete this folder. It just means that you must execute terraform init again, to download them.
 
@@ -90,11 +86,13 @@ resource "aws_vpc" "main" {
 
   -  we should check to see what terraform intends to create before we tell it to go ahead and create it. `Run terraform plan`
 
-  - Then, if you are happy with changes planned, execute `terraform apply`
-
 
 
 ![images](images/Screenshot_5.png)
+
+  - Then, if you are happy with changes planned, execute `terraform apply`
+
+### CREATE PUBLIC SUBNETS
 
 ![images](images/Screenshot_6.png)
 

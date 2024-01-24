@@ -85,8 +85,7 @@ resource "aws_vpc" "main" {
 
   ![images](images/Screenshot_2.png)
 
-  -  we should check to see what terraform intends to create before we tell it to go ahead and create it. `Run terraform plan`
-
+  -  we should check to see what terraform intends to create before we tell it to go ahead and create it. Run `terraform plan`
 
 
 ![images](images/Screenshot_5.png)

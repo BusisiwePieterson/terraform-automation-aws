@@ -132,6 +132,7 @@ We are creating 2 subnets, therefore declaring 2 resource blocks – one for eac
 ![images](images/Screenshot_8.png)
 
 ### Observations:
+##
 
 Hard coded values: We should always endeavour to make our work dynamic. 
 
@@ -141,9 +142,10 @@ First, destroy the current infrastructure. Since we are still in development, th
 
 ![images](images/Screenshot_9.png)
 
-## CODE REFACTORING
 
 ![images](images/Screenshot_10.png)
+
+## CODE REFACTORING
 
 ![images](images/Screenshot_11.png)
 

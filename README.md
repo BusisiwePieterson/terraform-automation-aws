@@ -41,8 +41,9 @@ region=us-east-1
 ```
 
 Alternatively, you can pass a region_name when creating clients and resources.
+##
 
-### CREATING VPC AND SUBNETS
+## CREATING VPC AND SUBNETS
 
 Let us create a directory structure
 

@@ -246,7 +246,7 @@ We will introduce a function cidrsubnet() to make this happen. It accepts 3 para
 ![images](images/Screenshot_11.png)
 
 ### Create Public Subnet1
-
+##
 ```
 resource "aws_subnet" "public" { 
     count                   = length(data.aws_availability_zones.available.names)
@@ -260,7 +260,7 @@ resource "aws_subnet" "public" {
 
 ![images](images/Screenshot_13.png)
 
-#### OBSERVATION
+#### Observations:
 ##
 
 What we have now, is sufficient to create the subnet resource required. But if you observe, it is not satisfying our business requirement of just 2 subnets. The length function will return number 3 to the count argument, but what we actually need is 2. Now, let us fix this.
@@ -273,6 +273,26 @@ variable "preferred_number_of_public_subnets" {
 }
 
 ```
+
+Next, update the count argument with a condition. Terraform needs to check first if there is a desired number of subnets. Otherwise, use the data returned by the lenght function. See how that is presented below.
+
+## Refactor Public Subnets
+
+```
+# Create public subnets
+resource "aws_subnet" "public" {
+  count  = var.preferred_number_of_public_subnets == null ? length(data.aws_availability_zones.available.names) : var.preferred_number_of_public_subnets   
+  vpc_id = aws_vpc.main.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+}
+```
+
+    - The first part var.preferred_number_of_public_subnets == null checks if the value of the variable is set to null or has some value defined.
+    - The second part ? and length(data.aws_availability_zones.available.names) means, if the first part is true, then use this. In other words, if      preferred number of public subnets is null (Or not known) then set the value to the data returned by lenght function.
+    - The third part : and var.preferred_number_of_public_subnets means, if the first condition is false, i.e preferred number of public subnets is not  null then set the value to whatever is definied in var.preferred_number_of_public_subnets
 
 ![images](images/Screenshot_14.png)
 

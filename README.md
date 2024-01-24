@@ -203,11 +203,76 @@ Do the same to `cidr` value in the `vpc` block, and all the other arguments.
 
 ```
 
+We are just going to introduce some interesting concepts. Loops & Data sources
+
+Terraform has a functionality that allows us to pull data which exposes information to us. Let us fetch Availability zones from AWS, and replace the hard coded value in the subnet’s availability_zone section.
+
+```
+# Get list of availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+```
+
+To make use of this new data resource, we will need to introduce a count argument in the subnet block: Something like this.
+
+```
+# Create public subnet1
+resource "aws_subnet" "public" { 
+    count                   = 2
+    vpc_id                  = aws_vpc.main.id
+    cidr_block              = "172.16.1.0/24"
+    map_public_ip_on_launch = true
+    availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+}
+```
+But we still have a problem. If we run Terraform with this configuration, it may succeed for the first time, but by the time it goes into the second loop, it will fail because we still have cidr_block hard coded. The same cidr_block cannot be created twice within the same VPC. So, we have a little more work to do.
+
+We will introduce a function cidrsubnet() to make this happen. It accepts 3 parameters.
+
+```
+  # Create public subnet1
+  resource "aws_subnet" "public" { 
+      count                   = 2
+      vpc_id                  = aws_vpc.main.id
+      cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+      map_public_ip_on_launch = true
+      availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+  }
+```
+
 ![images](images/Screenshot_11.png)
 
-![images](images/Screenshot_12.png)
+### Create Public Subnet1
+
+```
+resource "aws_subnet" "public" { 
+    count                   = length(data.aws_availability_zones.available.names)
+    vpc_id                  = aws_vpc.main.id
+    cidr_block              = cidrsubnet(var.vpc_cidr, 4 , count.index)
+    map_public_ip_on_launch = true
+    availability_zone       = data.aws_availability_zones.available.names[count.index]
+
+}
+```
 
 ![images](images/Screenshot_13.png)
+
+#### OBSERVATION
+##
+
+What we have now, is sufficient to create the subnet resource required. But if you observe, it is not satisfying our business requirement of just 2 subnets. The length function will return number 3 to the count argument, but what we actually need is 2. Now, let us fix this.
+
+Declare a variable to store the desired number of public subnets, and set the default value
+
+```
+variable "preferred_number_of_public_subnets" {
+  default = 2
+}
+
+```
 
 ![images](images/Screenshot_14.png)
 

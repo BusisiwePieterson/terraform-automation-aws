@@ -297,7 +297,7 @@ resource "aws_subnet" "public" {
 - The third part `: var.preferred_number_of_public_subnets` means, if the first condition is false, i.e preferred number of public subnets is not null then set the value to whatever is defined in var.preferred_number_of_public_subnets
 
 
-### Introducing variables.tf & terraform.tfvars
+## Introducing variables.tf & terraform.tfvars
 
 We will put all variable declarations in a separate file and provide non default values to each of them
 
@@ -351,15 +351,14 @@ The next thing is to check our terraform plan then `terraform apply`
 
 ![images](images/Screenshot_18.png)
 
-![images](images/Screenshot_19.png)
-
 Once Terraform is done, open your aws console and you will find the resources that you created.
 
-
-![images](images/Screenshot_20.png)
+![images](images/Screenshot_19.png)
 
 ![images](images/Screenshot_21.png)
 
+Lastly, do not forget to destroy your resources. Run `terraform destroy`
+
 ![images](images/Screenshot_22.png)
 
-![images](images/Screenshot_23.png)
+# THE END !!

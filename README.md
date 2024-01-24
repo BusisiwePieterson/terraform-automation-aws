@@ -41,7 +41,6 @@ region=us-east-1
 ```
 
 Alternatively, you can pass a region_name when creating clients and resources.
-##
 
 ## CREATING VPC AND SUBNETS
 
@@ -95,12 +94,44 @@ resource "aws_vpc" "main" {
 
 
 ![images](images/Screenshot_6.png)
+##
 
 ### CREATE PUBLIC SUBNETS
+
+According to our architectural design, we require 6 subnets:
+  
+  - 2 Public 
+  - 2 Private for **webservers**
+  - 2 Private for the **data layer**
+
+Let us create the first 2 public subnets, add below configuration to the main.tf file:
+
+```
+# Create public subnets1
+    resource "aws_subnet" "public1" {
+    vpc_id                     = aws_vpc.main.id
+    cidr_block                 = "172.16.0.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1a"
+
+}
+
+# Create public subnet2
+    resource "aws_subnet" "public2" {
+    vpc_id                     = aws_vpc.main.id
+    cidr_block                 = "172.16.1.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1b"
+}
+```
+
+We are creating 2 subnets, therefore declaring 2 resource blocks – one for each of the subnets. We are using the vpc_id argument to interpolate the value of the VPC id by setting it to aws_vpc.main.id. This way, Terraform knows inside which VPC to create the subnet. Run `terraform plan` and `terraform apply`
 
 ![images](images/Screenshot_7.png)
 
 ![images](images/Screenshot_8.png)
+
+
 
 ![images](images/Screenshot_9.png)
 

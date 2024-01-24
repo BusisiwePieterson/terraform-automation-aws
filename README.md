@@ -131,9 +131,17 @@ We are creating 2 subnets, therefore declaring 2 resource blocks – one for eac
 
 ![images](images/Screenshot_8.png)
 
+### Observations:
 
+Hard coded values: We should always endeavour to make our work dynamic. 
+
+Multiple Resource Blocks: Notice that we have declared multiple resource blocks for each subnet in the code. This is bad coding practice. We need to create a single resource block that can dynamically create resources without specifying multiple blocks. Now let us improve our code by refactoring it.
+
+First, destroy the current infrastructure. Since we are still in development, this is totally fine. Otherwise, DO NOT DESTROY an infrastructure that has been deployed to production. To destroy whatever has been created run `terraform destroy` command, and type `yes` after evaluating the plan.
 
 ![images](images/Screenshot_9.png)
+
+## CODE REFACTORING
 
 ![images](images/Screenshot_10.png)
 

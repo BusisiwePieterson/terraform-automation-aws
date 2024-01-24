@@ -347,15 +347,14 @@ resource "aws_subnet" "public" {
 
 ![images](images/Screenshot_15.png)
 
-
-
-![images](images/Screenshot_16.png)
-
-![images](images/Screenshot_17.png)
+The next thing is to check our terraform plan then `terraform apply`
 
 ![images](images/Screenshot_18.png)
 
 ![images](images/Screenshot_19.png)
+
+Once Terraform is done, open your aws console and you will find the resources that you created.
+
 
 ![images](images/Screenshot_20.png)
 

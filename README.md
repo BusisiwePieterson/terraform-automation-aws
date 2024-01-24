@@ -75,14 +75,15 @@ resource "aws_vpc" "main" {
 
 ```
 
-![images](images/Screenshot_2.png)
 
   - The next thing we need to do, is to download necessary plugins for Terraform to work. These plugins are used by providers and provisioners. At this stage, we only have provider in our main.tf file. So, Terraform will just download plugin for AWS provider.  Run `terraform init`
 
 
-  - Notice that a new directory has been created: .terraform.... This is where Terraform keeps plugins. Generally, it is safe to delete this folder. It just means that you must execute terraform init again, to download them.
-
   ![images](images/Screenshot_4.png)
+
+   - Notice that a new directory has been created: .terraform.... This is where Terraform keeps plugins. Generally, it is safe to delete this folder. It just means that you must execute terraform init again, to download them.
+
+  ![images](images/Screenshot_2.png)
 
   -  we should check to see what terraform intends to create before we tell it to go ahead and create it. `Run terraform plan`
 
@@ -92,9 +93,10 @@ resource "aws_vpc" "main" {
 
   - Then, if you are happy with changes planned, execute `terraform apply`
 
-### CREATE PUBLIC SUBNETS
 
 ![images](images/Screenshot_6.png)
+
+### CREATE PUBLIC SUBNETS
 
 ![images](images/Screenshot_7.png)
 

@@ -7,7 +7,6 @@
 Terraform is an IAC tool, used primarily by DevOps teams to automate various infrastructure tasks. The provisioning of cloud resources, for instance, is one of the main use cases of Terraform.
 
 Terraform allows you to describe your complete infrastructure in the form of code. Even if your servers come from different providers such as AWS or Azure, Terraform helps you build and manage these resources in parallel across providers. Think of Terraform as connective tissue and common language that you can utilize to manage your entire IT stack.
-##
 
 ## Prerequisites before writing Terraform code
 
@@ -43,11 +42,31 @@ region=us-east-1
 
 Alternatively, you can pass a region_name when creating clients and resources.
 
-## CREATING VPC AND SUBNETS
+### CREATING VPC AND SUBNETS
+
+Let us create a directory structure
+
+Open your Visual Studio Code and:
+
+  - Create a folder called `PBL`
+  - Create a file in the folder, name it `main.tf`
+
+
+#### Provider and VPC resource section
+
+  - Add AWS as a provider, and a resource to create a VPC in the main.tf file.
+
+  - Provider block informs Terraform that we intend to build infrastructure within AWS.
+
+  - Resource block will create a VPC.
+
+Note: You can change the configuration above to create your VPC in other region that is closer to you. The same applies to all configuration snippets that will follow.
 
 ![images](images/Screenshot_2.png)
 
 ![images](images/Screenshot_3.png)
+
+
 
 ![images](images/Screenshot_4.png)
 
